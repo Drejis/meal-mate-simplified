@@ -2,32 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* MealMate Design System - Fresh, appetizing, modern food subscription app
+All colors MUST be HSL for consistency.
 */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 24 9.8% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 24 9.8% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 24 9.8% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Fresh green primary - evokes healthy, fresh food */
+    --primary: 142 76% 36%;
+    --primary-foreground: 355.7 100% 97.3%;
+    
+    /* Warm orange secondary - appetizing and energetic */
+    --secondary: 24 95% 53%;
+    --secondary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Soft green accent */
+    --accent: 142 76% 36%;
+    --accent-foreground: 355.7 100% 97.3%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -36,7 +39,21 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Food-focused gradients */
+    --gradient-fresh: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
+    --gradient-warm: linear-gradient(135deg, hsl(24 95% 53%), hsl(24 95% 63%));
+    --gradient-hero: linear-gradient(135deg, hsl(142 76% 36%), hsl(24 95% 53%));
+    
+    /* Elegant shadows with green tint */
+    --shadow-soft: 0 4px 20px -4px hsl(142 76% 36% / 0.1);
+    --shadow-medium: 0 8px 25px -8px hsl(142 76% 36% / 0.15);
+    --shadow-strong: 0 16px 40px -12px hsl(142 76% 36% / 0.2);
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
