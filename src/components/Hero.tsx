@@ -1,9 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Clock, Star, Users } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import heroMeal from "@/assets/hero-meal.jpg";
 
 const Hero = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleStartPlan = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/auth');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
       {/* Background decorative elements */}
@@ -47,8 +60,12 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-fresh hover:shadow-medium transition-all duration-300">
-                Start Your Plan
+              <Button 
+                size="lg" 
+                onClick={handleStartPlan}
+                className="bg-gradient-fresh hover:shadow-medium transition-all duration-300"
+              >
+                {user ? 'Go to Dashboard' : 'Start Your Plan'}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/5">

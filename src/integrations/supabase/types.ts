@@ -14,6 +14,179 @@ export type Database = {
   }
   public: {
     Tables: {
+      discount_coupons: {
+        Row: {
+          code: string
+          created_at: string
+          current_uses: number | null
+          discount_type: string
+          discount_value: number
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          max_uses: number | null
+          min_order_amount: number | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          current_uses?: number | null
+          discount_type: string
+          discount_value: number
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          max_uses?: number | null
+          min_order_amount?: number | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          current_uses?: number | null
+          discount_type?: string
+          discount_value?: number
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          max_uses?: number | null
+          min_order_amount?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meal_orders: {
+        Row: {
+          created_at: string
+          delivery_date: string | null
+          delivery_status: string | null
+          discount_amount: number | null
+          final_amount: number
+          id: string
+          payment_method: string | null
+          payment_status: string | null
+          subscription_id: string | null
+          total_amount: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          delivery_date?: string | null
+          delivery_status?: string | null
+          discount_amount?: number | null
+          final_amount: number
+          id?: string
+          payment_method?: string | null
+          payment_status?: string | null
+          subscription_id?: string | null
+          total_amount: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          delivery_date?: string | null
+          delivery_status?: string | null
+          discount_amount?: number | null
+          final_amount?: number
+          id?: string
+          payment_method?: string | null
+          payment_status?: string | null
+          subscription_id?: string | null
+          total_amount?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meal_orders_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "user_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meal_plans: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          meals_per_week: number
+          name: string
+          price_per_meal: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          meals_per_week: number
+          name: string
+          price_per_meal: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          meals_per_week?: number
+          name?: string
+          price_per_meal?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meals: {
+        Row: {
+          calories: number | null
+          carbs: number | null
+          category: string | null
+          created_at: string
+          description: string | null
+          fat: number | null
+          id: string
+          image_url: string | null
+          is_available: boolean | null
+          name: string
+          protein: number | null
+          updated_at: string
+        }
+        Insert: {
+          calories?: number | null
+          carbs?: number | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          fat?: number | null
+          id?: string
+          image_url?: string | null
+          is_available?: boolean | null
+          name: string
+          protein?: number | null
+          updated_at?: string
+        }
+        Update: {
+          calories?: number | null
+          carbs?: number | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          fat?: number | null
+          id?: string
+          image_url?: string | null
+          is_available?: boolean | null
+          name?: string
+          protein?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           account_type: string | null
@@ -53,6 +226,39 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          id: string
+          referral_code: string
+          referred_user_id: string | null
+          referrer_user_id: string | null
+          reward_amount: number | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referral_code: string
+          referred_user_id?: string | null
+          referrer_user_id?: string | null
+          reward_amount?: number | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referral_code?: string
+          referred_user_id?: string | null
+          referrer_user_id?: string | null
+          reward_amount?: number | null
+          status?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -119,6 +325,122 @@ export type Database = {
         }
         Relationships: []
       }
+      user_credits: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          is_used: boolean | null
+          source: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_used?: boolean | null
+          source: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_used?: boolean | null
+          source?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          title?: string
+          type?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_subscriptions: {
+        Row: {
+          created_at: string
+          delivery_address: string | null
+          delivery_days: string[] | null
+          delivery_time_slot: string | null
+          dietary_preferences: string[] | null
+          end_date: string | null
+          id: string
+          meal_plan_id: string | null
+          start_date: string
+          status: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          delivery_address?: string | null
+          delivery_days?: string[] | null
+          delivery_time_slot?: string | null
+          dietary_preferences?: string[] | null
+          end_date?: string | null
+          id?: string
+          meal_plan_id?: string | null
+          start_date: string
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          delivery_address?: string | null
+          delivery_days?: string[] | null
+          delivery_time_slot?: string | null
+          dietary_preferences?: string[] | null
+          end_date?: string | null
+          id?: string
+          meal_plan_id?: string | null
+          start_date?: string
+          status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_subscriptions_meal_plan_id_fkey"
+            columns: ["meal_plan_id"]
+            isOneToOne: false
+            referencedRelation: "meal_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       wallets: {
         Row: {
           balance: number | null
@@ -145,6 +467,60 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      weekly_meal_schedules: {
+        Row: {
+          created_at: string
+          id: string
+          is_eaten: boolean | null
+          is_skipped: boolean | null
+          meal_id: string | null
+          scheduled_date: string
+          subscription_id: string | null
+          updated_at: string
+          user_id: string | null
+          week_start_date: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_eaten?: boolean | null
+          is_skipped?: boolean | null
+          meal_id?: string | null
+          scheduled_date: string
+          subscription_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+          week_start_date: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_eaten?: boolean | null
+          is_skipped?: boolean | null
+          meal_id?: string | null
+          scheduled_date?: string
+          subscription_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+          week_start_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "weekly_meal_schedules_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "weekly_meal_schedules_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "user_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

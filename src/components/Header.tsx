@@ -1,10 +1,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, User, ShoppingBag } from "lucide-react";
+import { Menu, User, ShoppingBag, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+    setIsOpen(false);
+  };
 
   const navItems = [
     { label: "How it Works", href: "#how" },
@@ -40,12 +50,46 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary/5">
-              Sign In
-            </Button>
-            <Button size="sm" className="bg-gradient-fresh hover:shadow-medium transition-all duration-300">
-              Get Started
-            </Button>
+            {user ? (
+              <>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => navigate('/dashboard')}
+                  className="border-primary text-primary hover:bg-primary/5"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  Dashboard
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleSignOut}
+                  className="border-secondary text-secondary hover:bg-secondary/5"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => navigate('/auth')}
+                  className="border-primary text-primary hover:bg-primary/5"
+                >
+                  Sign In
+                </Button>
+                <Button 
+                  size="sm" 
+                  onClick={() => navigate('/auth')}
+                  className="bg-gradient-fresh hover:shadow-medium transition-all duration-300"
+                >
+                  Get Started
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu */}
@@ -76,13 +120,43 @@ const Header = () => {
                 ))}
 
                 <div className="flex flex-col gap-3 mt-6">
-                  <Button variant="outline" className="border-primary text-primary">
-                    <User className="w-4 h-4 mr-2" />
-                    Sign In
-                  </Button>
-                  <Button className="bg-gradient-fresh">
-                    Get Started
-                  </Button>
+                  {user ? (
+                    <>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => { navigate('/dashboard'); setIsOpen(false); }}
+                        className="border-primary text-primary"
+                      >
+                        <User className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        onClick={handleSignOut}
+                        className="border-secondary text-secondary"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => { navigate('/auth'); setIsOpen(false); }}
+                        className="border-primary text-primary"
+                      >
+                        <User className="w-4 h-4 mr-2" />
+                        Sign In
+                      </Button>
+                      <Button 
+                        onClick={() => { navigate('/auth'); setIsOpen(false); }}
+                        className="bg-gradient-fresh"
+                      >
+                        Get Started
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </SheetContent>
